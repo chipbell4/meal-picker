@@ -1,0 +1,103 @@
+{
+    "Spaghetti": [
+        "Ground Beef (1lb)",
+        "Tomato Sauce",
+        "Capellini",
+        "Parmesan",
+        "Salad Green",
+        "Lemon"
+    ],
+    "Tacos": [
+        "Ground Beef (1lb)",
+        "Taco Shells",
+        "Spinach",
+        "Sour Cream",
+        "Shredded Cheese",
+        "Onion",
+        "Cilantro",
+        "Lime"
+    ],
+    "Tofu Stir Fry": [
+        "Tofu",
+        "Stir Fry Sauce",
+        "Red Bell Pepper",
+        "Broccoli",
+        "Green Onions",
+        "Ginger",
+        "Cilantro",
+        "Lime"
+    ],
+    "Cacio E Pepe": [
+        "Capellini",
+        "Parmesan",
+        "Butter",
+        "Salad Green",
+        "Lemon"
+    ],
+    "Blackened Chicken Salad": [
+        "Chicken Cutlets",
+        "Kale",
+        "Croutons",
+        "Cherry Tomatoes"
+    ],
+    "Ramen": [
+        "Ramen Noodles",
+        "Red Peppers",
+        "Green Onions",
+        "Chicken",
+        "Ginger",
+        "Cilantro"
+    ],
+    "Chili": [
+        "Ground Beef (1lb)",
+        "Crushed Tomatoes",
+        "Black Beans",
+        "Onion",
+        "Red Bell Pepper",
+        "Shredded Cheese",
+        "Sour Cream",
+        "Cilantro"
+    ],
+    "Mexican Casserole": [
+        "Ground Beef (1lb)",
+        "Black Beans",
+        "Corn",
+        "Shredded Cheese",
+        "Sour Cream",
+        "Onion",
+        "Cilantro",
+        "Enchilada Sauce",
+        "Red Bell Pepper",
+        "Cilantro"
+    ],
+    "Lasagna": [
+        "Lasagna Noodles",
+        "Ground Beef (1lb)",
+        "Ricotta Cheese",
+        "Marinara Sauce",
+        "Parmesan",
+        "Mozzarella Cheese",
+        "Salad Green",
+        "Lemon"
+    ],
+    "Tofu Curry": [
+        "Tofu",
+        "Coconut Milk",
+        "Curry Paste",
+        "Carrots",
+        "Red Bell Pepper",
+        "Green Onions",
+        "Ginger",
+        "Cilantro"
+    ],
+    "Beef Vegetable Soup": [
+        "Ground Beef (1lb)",
+        "Frozen Mixed Vegetables",
+        "Tomato Paste",
+        "Green Beans",
+        "Onion",
+        "Beef Broth",
+        "Frozen Garlic Bread",
+        "Soy Sauce"
+    ]
+}

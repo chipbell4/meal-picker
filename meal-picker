@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+
+import argparse
+import datetime
+import json
+import random
+import subprocess
+from collections import defaultdict
+import sys
+
+
+def asrun(ascript):
+    osa = subprocess.run(
+        ["/usr/bin/osascript", "-"], input=ascript, text=True, capture_output=True
+    )
+    if osa.returncode == 0:
+        return osa.stdout.rstrip()
+    else:
+        raise ChildProcessError(f"AppleScript: {osa.stderr.rstrip()}")
+
+def add_item(list_name: str, item: str, note: str = ""):
+    with open("add-item.scpt", "r") as f:
+        template = f.read()
+
+    script = (
+        template.replace("%LIST%", list_name)
+        .replace("%ITEM%", item)
+        .replace("%NOTE%", note)
+    )
+
+    return asrun(script)
+
+def add_grocery(item: str, note: str = ""):
+    return add_item("Groceries", item, note)
+
+def add_meal(meal: str, ingredients: list[str]):
+    note = " ".join(ingredients)
+    add_item("Meals", meal, note)
+
+
+# Load Meals
+with open("meals.json", "r") as f:
+    meals = json.loads(f.read())
+
+
+# Parse Arguments
+parser = argparse.ArgumentParser(
+    prog="meal-picker",
+    description="Picks meals randomly from a list, adding the ingredients to our grocery list",
+)
+parser.add_argument("-n", "--number-of-meals", default=1, type=int)
+parser.add_argument(
+    "-s", "--seed", default=int(datetime.datetime.now().timestamp()), type=int
+)
+parser.add_argument("-r", "--add-to-reminders", default=False, action="store_true")
+parser.add_argument("-d", "--debug", default=False, action="store_true")
+args = parser.parse_args()
+
+# Pick a subset of meals, respecting seed so we can re-run and actually apply
+# once we get a set we like
+all_meals = list(meals.keys())
+random.seed(args.seed)
+chosen_meals = random.sample(all_meals, args.number_of_meals)
+print("-" * 80)
+for meal in chosen_meals:
+    print(meal)
+print("-" * 80)
+
+print(f"Seed was {args.seed}")
+
+# Add each ingredient to the list, but first try to deduplicate (and replace
+# with a count). Moreover, keep track of the meals associated with each
+# ingredient so that we can add that as a note
+ingredient_counts = defaultdict(int)
+ingredient_meal_lookup = defaultdict(list)
+for meal in chosen_meals:
+    if args.add_to_reminders:
+        add_meal(meal, meals[meal])
+
+    for ingredient in meals[meal]:
+        ingredient_counts[ingredient] += 1
+        ingredient_meal_lookup[ingredient].append(meal)
+
+ingredients_to_add = sorted(ingredient_counts.keys())
+for ingredient in ingredients_to_add:
+    reminder_title = ingredient
+    reminder_notes = ", ".join(ingredient_meal_lookup[ingredient])
+    count = ingredient_counts[ingredient]
+
+    if count > 1:
+        reminder_title += f" (x{count})"
+
+    if args.debug:
+        print(f"  Adding item {reminder_title} : {reminder_notes}")
+    if args.add_to_reminders:
+        add_grocery(reminder_title, reminder_notes)
+
+print("Dry-run only. Set -r to actually save to Reminders")
