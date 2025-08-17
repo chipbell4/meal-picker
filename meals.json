@@ -8,7 +8,8 @@
             "Salad Green",
             "Lemon"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 0
     },
     "Tacos": {
         "ingredients": [
@@ -21,7 +22,8 @@
             "Cilantro",
             "Lime"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 0.5
     },
     "Tofu Stir Fry": {
         "ingredients": [
@@ -36,7 +38,8 @@
         ],
         "pantry": [
             "Rice"
-        ]
+        ],
+        "leftovers": 0.5
     },
     "Cacio E Pepe": {
         "ingredients": [
@@ -47,7 +50,8 @@
         ],
         "pantry": [
             "Butter"
-        ]
+        ],
+        "leftovers": 0
     },
     "Blackened Chicken Salad": {
         "ingredients": [
@@ -57,7 +61,8 @@
         ],
         "pantry": [
             "Croutons"
-        ]
+        ],
+        "leftovers": 1
     },
     "Ramen": {
         "ingredients": [
@@ -68,7 +73,8 @@
             "Ginger",
             "Cilantro"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 0
     },
     "Chili": {
         "ingredients": [
@@ -81,7 +87,8 @@
             "Sour Cream",
             "Cilantro"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 2
     },
     "Mexican Casserole": {
         "ingredients": [
@@ -97,7 +104,8 @@
         ],
         "pantry": [
             "Rice"
-        ]
+        ],
+        "leftovers": 1
     },
     "Lasagna": {
         "ingredients": [
@@ -110,7 +118,8 @@
             "Salad Green",
             "Lemon"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 1
     },
     "Tofu Curry": {
         "ingredients": [
@@ -123,7 +132,8 @@
             "Ginger",
             "Cilantro"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 0
     },
     "Beef Vegetable Soup": {
         "ingredients": [
@@ -136,6 +146,7 @@
             "Frozen Garlic Bread",
             "Soy Sauce"
         ],
-        "pantry": []
+        "pantry": [],
+        "leftovers": 1
     }
 }
