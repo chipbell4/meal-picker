@@ -77,10 +77,12 @@ print(f"Seed was {args.seed}")
 ingredient_counts = defaultdict(int)
 ingredient_meal_lookup = defaultdict(list)
 for meal in chosen_meals:
-    if args.add_to_reminders:
-        add_meal(meal, meals[meal])
+    ingredients = meals[meal]["ingredients"]
 
-    for ingredient in meals[meal]["ingredients"]:
+    if args.add_to_reminders:
+        add_meal(meal, ingredients)
+
+    for ingredient in ingredients:
         ingredient_counts[ingredient] += 1
         ingredient_meal_lookup[ingredient].append(meal)
 
