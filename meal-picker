@@ -77,7 +77,7 @@ for meal in chosen_meals:
     if args.add_to_reminders:
         add_meal(meal, meals[meal])
 
-    for ingredient in meals[meal]:
+    for ingredient in meals[meal]["ingredients"]:
         ingredient_counts[ingredient] += 1
         ingredient_meal_lookup[ingredient].append(meal)
 
