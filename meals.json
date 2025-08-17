@@ -7,7 +7,8 @@
             "Parmesan",
             "Salad Green",
             "Lemon"
-        ]
+        ],
+        "pantry": []
     },
     "Tacos": {
         "ingredients": [
@@ -19,7 +20,8 @@
             "Onion",
             "Cilantro",
             "Lime"
-        ]
+        ],
+        "pantry": []
     },
     "Tofu Stir Fry": {
         "ingredients": [
@@ -31,23 +33,30 @@
             "Ginger",
             "Cilantro",
             "Lime"
+        ],
+        "pantry": [
+            "Rice"
         ]
     },
     "Cacio E Pepe": {
         "ingredients": [
             "Capellini",
             "Parmesan",
-            "Butter",
             "Salad Green",
             "Lemon"
+        ],
+        "pantry": [
+            "Butter"
         ]
     },
     "Blackened Chicken Salad": {
         "ingredients": [
             "Chicken Cutlets",
             "Kale",
-            "Croutons",
             "Cherry Tomatoes"
+        ],
+        "pantry": [
+            "Croutons"
         ]
     },
     "Ramen": {
@@ -58,7 +67,8 @@
             "Chicken",
             "Ginger",
             "Cilantro"
-        ]
+        ],
+        "pantry": []
     },
     "Chili": {
         "ingredients": [
@@ -70,7 +80,8 @@
             "Shredded Cheese",
             "Sour Cream",
             "Cilantro"
-        ]
+        ],
+        "pantry": []
     },
     "Mexican Casserole": {
         "ingredients": [
@@ -80,10 +91,12 @@
             "Shredded Cheese",
             "Sour Cream",
             "Onion",
-            "Cilantro",
             "Enchilada Sauce",
             "Red Bell Pepper",
             "Cilantro"
+        ],
+        "pantry": [
+            "Rice"
         ]
     },
     "Lasagna": {
@@ -96,7 +109,8 @@
             "Mozzarella Cheese",
             "Salad Green",
             "Lemon"
-        ]
+        ],
+        "pantry": []
     },
     "Tofu Curry": {
         "ingredients": [
@@ -108,7 +122,8 @@
             "Green Onions",
             "Ginger",
             "Cilantro"
-        ]
+        ],
+        "pantry": []
     },
     "Beef Vegetable Soup": {
         "ingredients": [
@@ -120,6 +135,7 @@
             "Beef Broth",
             "Frozen Garlic Bread",
             "Soy Sauce"
-        ]
+        ],
+        "pantry": []
     }
 }

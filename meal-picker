@@ -80,7 +80,8 @@ for meal in chosen_meals:
     ingredients = meals[meal]["ingredients"]
 
     if args.add_to_reminders:
-        add_meal(meal, ingredients)
+        pantry_items = meals[meal]["pantry"]
+        add_meal(meal, ingredients + pantry_items)
 
     for ingredient in ingredients:
         ingredient_counts[ingredient] += 1
