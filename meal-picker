@@ -73,14 +73,17 @@ print(f"Seed was {args.seed}")
 
 # Add each ingredient to the list, but first try to deduplicate (and replace
 # with a count). Moreover, keep track of the meals associated with each
-# ingredient so that we can add that as a note
+# ingredient so that we can add that as a note. Keep track of the unique set of
+# pantry items needed so that we can remind ourselves at the end
 ingredient_counts = defaultdict(int)
 ingredient_meal_lookup = defaultdict(list)
+required_pantry_items = set()
 for meal in chosen_meals:
     ingredients = meals[meal]["ingredients"]
+    pantry_items = meals[meal]["pantry"]
+    required_pantry_items.update(pantry_items)
 
     if args.add_to_reminders:
-        pantry_items = meals[meal]["pantry"]
         add_meal(meal, ingredients + pantry_items)
 
     for ingredient in ingredients:
@@ -100,5 +103,11 @@ for ingredient in ingredients_to_add:
         print(f"  Adding item {reminder_title} : {reminder_notes}")
     if args.add_to_reminders:
         add_grocery(reminder_title, reminder_notes)
+
+print()
+print("Pantry items required:")
+for pantry_item in required_pantry_items:
+    print(f"  - {pantry_item}")
+print()
 
 print("Dry-run only. Set -r to actually save to Reminders")
