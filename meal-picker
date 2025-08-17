@@ -8,6 +8,8 @@ import subprocess
 from collections import defaultdict
 import sys
 
+import domain
+
 
 def asrun(ascript):
     osa = subprocess.run(
@@ -32,10 +34,6 @@ def add_item(list_name: str, item: str, note: str = ""):
     return asrun(script)
 
 
-def pick_random_meals(all_meals, n):
-    return random.sample(all_meals, n)
-
-
 def add_grocery(item: str, note: str = ""):
     return add_item("Groceries", item, note)
 
@@ -43,11 +41,6 @@ def add_grocery(item: str, note: str = ""):
 def add_meal(meal: str, ingredients: list[str]):
     note = " ".join(ingredients)
     add_item("Meals", meal, note)
-
-
-# Load Meals
-with open("meals.json", "r") as f:
-    meals = json.loads(f.read())
 
 
 # Parse Arguments
@@ -65,12 +58,11 @@ args = parser.parse_args()
 
 # Pick a subset of meals, respecting seed so we can re-run and actually apply
 # once we get a set we like
-all_meals = list(meals.keys())
 random.seed(args.seed)
-chosen_meals = pick_random_meals(all_meals, args.number_of_meals)
+chosen_meals = domain.pick_random_meals(args.number_of_meals)
 print("-" * 80)
 for meal in chosen_meals:
-    print(meal)
+    print(meal.name)
 print("-" * 80)
 
 print(f"Seed was {args.seed}")
@@ -81,11 +73,10 @@ print(f"Seed was {args.seed}")
 # pantry items needed so that we can remind ourselves at the end
 ingredient_counts = defaultdict(int)
 ingredient_meal_lookup = defaultdict(list)
-required_pantry_items = set()
+required_pantry_items = domain.required_pantry_for(chosen_meals)
 for meal in chosen_meals:
-    ingredients = meals[meal]["ingredients"]
-    pantry_items = meals[meal]["pantry"]
-    required_pantry_items.update(pantry_items)
+    ingredients = meal.ingredients
+    pantry_items = meal.pantry
 
     if args.add_to_reminders:
         add_meal(meal, ingredients + pantry_items)
@@ -97,7 +88,9 @@ for meal in chosen_meals:
 ingredients_to_add = sorted(ingredient_counts.keys())
 for ingredient in ingredients_to_add:
     reminder_title = ingredient
-    reminder_notes = ", ".join(ingredient_meal_lookup[ingredient])
+    reminder_notes = ", ".join(
+        [meal.name for meal in ingredient_meal_lookup[ingredient]]
+    )
     count = ingredient_counts[ingredient]
 
     if count > 1:
