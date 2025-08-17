@@ -32,6 +32,10 @@ def add_item(list_name: str, item: str, note: str = ""):
     return asrun(script)
 
 
+def pick_random_meals(all_meals, n):
+    return random.sample(all_meals, n)
+
+
 def add_grocery(item: str, note: str = ""):
     return add_item("Groceries", item, note)
 
@@ -63,7 +67,7 @@ args = parser.parse_args()
 # once we get a set we like
 all_meals = list(meals.keys())
 random.seed(args.seed)
-chosen_meals = random.sample(all_meals, args.number_of_meals)
+chosen_meals = pick_random_meals(all_meals, args.number_of_meals)
 print("-" * 80)
 for meal in chosen_meals:
     print(meal)
