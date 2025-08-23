@@ -1,4 +1,70 @@
 {
+    "Parfait": {
+        "ingredients": [
+            "Yogurt (Big Tub)",
+            "Granola",
+            "Berries"
+        ],
+        "pantry": [],
+        "leftovers": 2,
+        "meal": ["breakfast"]
+    },
+    "Breakfast Burrito": {
+        "ingredients": [
+            "Bacon",
+            "Eggs",
+            "Tortilla",
+            "Shredded Cheese"
+        ],
+        "pantry": [
+            "Butter"
+        ],
+        "leftovers": 1,
+        "meal": ["breakfast"]
+    },
+    "Overnight Oats": {
+        "ingredients": [
+            "Milk",
+            "Fruit"
+        ],
+        "pantry": [
+            "Oats",
+            "Vanilla",
+            "Chia Seed",
+            "Maple",
+            "Almonds",
+            "Cinnamon"
+        ],
+        "leftovers": 1,
+        "meal": ["breakfast"]
+    },
+    "Peanut Butter Banana Toast": {
+        "ingredients": [
+            "Bread",
+            "Bananas"
+        ],
+        "pantry": [
+            "Peanut Butter",
+            "Maple",
+            "Chia Seed",
+            "Cinnamon"
+        ],
+        "leftovers": 2,
+        "meal": ["breakfast"]
+    },
+    "Chia Seed Pudding": {
+        "ingredients": [
+            "Coconut Milk",
+            "Mango"
+        ],
+        "pantry": [
+            "Chia Seed",
+            "Maple",
+            "Shredded Coconut"
+        ],
+        "leftovers": 1,
+        "meal": ["breakfast"]
+    },
     "Spaghetti": {
         "ingredients": [
             "Ground Beef (1lb)",
@@ -9,7 +75,8 @@
             "Lemon"
         ],
         "pantry": [],
-        "leftovers": 0
+        "leftovers": 0,
+        "meal": ["dinner"]
     },
     "Tacos": {
         "ingredients": [
@@ -23,7 +90,8 @@
             "Lime"
         ],
         "pantry": [],
-        "leftovers": 0.5
+        "leftovers": 0.5,
+        "meal": ["dinner"]
     },
     "Tofu Stir Fry": {
         "ingredients": [
@@ -39,7 +107,8 @@
         "pantry": [
             "Rice"
         ],
-        "leftovers": 0.5
+        "leftovers": 0.5,
+        "meal": ["dinner"]
     },
     "Cacio E Pepe": {
         "ingredients": [
@@ -51,7 +120,8 @@
         "pantry": [
             "Butter"
         ],
-        "leftovers": 0
+        "leftovers": 0,
+        "meal": ["dinner"]
     },
     "Blackened Chicken Salad": {
         "ingredients": [
@@ -62,7 +132,8 @@
         "pantry": [
             "Croutons"
         ],
-        "leftovers": 1
+        "leftovers": 1,
+        "meal": ["dinner"]
     },
     "Ramen": {
         "ingredients": [
@@ -74,7 +145,8 @@
             "Cilantro"
         ],
         "pantry": [],
-        "leftovers": 0
+        "leftovers": 0,
+        "meal": ["dinner"]
     },
     "Chili": {
         "ingredients": [
@@ -88,7 +160,8 @@
             "Cilantro"
         ],
         "pantry": [],
-        "leftovers": 2
+        "leftovers": 2,
+        "meal": ["dinner"]
     },
     "Mexican Casserole": {
         "ingredients": [
@@ -105,7 +178,35 @@
         "pantry": [
             "Rice"
         ],
-        "leftovers": 1
+        "leftovers": 1,
+        "meal": ["dinner"]
+    },
+    "Enchiladas": {
+        "ingredients": [
+            "Ground Beef (1lb)",
+            "Enchilada Sauce",
+            "Black Beans",
+            "Shredded Cheese",
+            "Onion",
+            "Cilantro",
+            "Tortilla"
+        ],
+        "pantry": [],
+        "leftovers": 1,
+        "meal": ["dinner"]
+    },
+    "Flatbread Pizza": {
+        "ingredients": [
+            "Flatbread Pizza Crusts",
+            "Pepperoni",
+            "Pizza Sauce",
+            "Pizza Topping",
+            "Spinach",
+            "Lemon"
+        ],
+        "pantry": [],
+        "leftovers": 0,
+        "meal": ["lunch", "dinner"]
     },
     "Lasagna": {
         "ingredients": [
@@ -119,7 +220,8 @@
             "Lemon"
         ],
         "pantry": [],
-        "leftovers": 1
+        "leftovers": 1,
+        "meal": ["dinner"]
     },
     "Tofu Curry": {
         "ingredients": [
@@ -133,7 +235,8 @@
             "Cilantro"
         ],
         "pantry": [],
-        "leftovers": 0
+        "leftovers": 0,
+        "meal": ["dinner"]
     },
     "Beef Vegetable Soup": {
         "ingredients": [
@@ -147,6 +250,7 @@
             "Soy Sauce"
         ],
         "pantry": [],
-        "leftovers": 1
+        "leftovers": 1,
+        "meal": ["dinner"]
     }
 }

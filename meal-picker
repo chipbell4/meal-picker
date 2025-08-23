@@ -7,6 +7,7 @@ import random
 import subprocess
 from collections import defaultdict
 import sys
+import itertools
 
 import domain
 
@@ -59,7 +60,8 @@ args = parser.parse_args()
 # Pick a subset of meals, respecting seed so we can re-run and actually apply
 # once we get a set we like
 random.seed(args.seed)
-chosen_meals = domain.pick_random_meals(args.number_of_meals)
+db = domain.MealDatabase()
+chosen_meals = itertools.islice(db.meals_for_type(domain.MealType.Dinner), args.number_of_meals)
 print("-" * 80)
 for meal in chosen_meals:
     print(meal.name)
