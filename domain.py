@@ -57,27 +57,27 @@ class DailySchedule:
 
 
 class MealSchedule:
-    schedule: list[DailySchedule]
+    days: list[DailySchedule]
 
     def __init__(self):
-        self.schedule = []
+        self.days = []
 
     def schedule_full_for(meal_type: str):
         return False
 
     def fill_schedule(self, days: int, db: MealDatabase):
-        self.schedule = [DailySchedule() for _ in range(days)]
+        self.days = [DailySchedule() for _ in range(days)]
 
         # first do breakfasts, that only have left overs into other breakfasts
         all_breakfasts = db.meals_for_type(MealType.Breakfast)
         current_day = 0
         while current_day < days:
             breakfast = next(all_breakfasts)
-            self.schedule[current_day].breakfast = breakfast
+            self.days[current_day].breakfast = breakfast
             leftovers_remaining = breakfast.leftovers
             while leftovers_remaining > 0 and current_day < (days - 1):
                 current_day += 1
-                self.schedule[current_day].breakfast = breakfast
+                self.days[current_day].breakfast = breakfast
                 leftovers_remaining -= 1
 
             current_day += 1
@@ -85,7 +85,7 @@ class MealSchedule:
     @property
     def pantry_items(self) -> set[str]:
         items = set()
-        for day in self.schedule:
+        for day in self.days:
             if day.breakfast is not None:
                 items.update(day.breakfast.pantry)
             if day.lunch is not None:
@@ -102,8 +102,10 @@ def required_pantry_for(meals: list[Meal]) -> set[str]:
     return required_pantry
 
 
-#db = MealDatabase()
-#schedule = MealSchedule()
-#schedule.fill_schedule(4, db)
-#for day in schedule.schedule:
-#    print(day.breakfast.name)
+db = MealDatabase()
+schedule = MealSchedule()
+schedule.fill_schedule(4, db)
+for day in schedule.days:
+    print(day.breakfast.name)
+
+print(schedule.pantry_items)
