@@ -57,6 +57,17 @@ class DailySchedule:
     lunch: Optional[Meal] = None
     dinner: Optional[Meal] = None
 
+    @property
+    def meals(self) -> Generator[Meal, None, None]:
+        if self.breakfast is not None:
+            yield self.breakfast
+
+        if self.lunch is not None:
+            yield self.lunch
+
+        if self.dinner is not None:
+            yield self.dinner
+
 
 class MealSchedule:
     days: list[DailySchedule]
@@ -107,12 +118,8 @@ class MealSchedule:
     def pantry_items(self) -> set[str]:
         items = set()
         for day in self.days:
-            if day.breakfast is not None:
-                items.update(day.breakfast.pantry)
-            if day.lunch is not None:
-                items.update(day.lunch.pantry)
-            if day.dinner is not None:
-                items.update(day.dinner.pantry)
+            for meal in day.meals:
+                items.update(meal.pantry)
         return items
 
 
