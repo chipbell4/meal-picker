@@ -69,6 +69,12 @@ class DailySchedule:
         if self.dinner is not None:
             yield self.dinner
 
+    def __repr__(self) -> str:
+        s = "---\n"
+        for meal in self.meals:
+            s += f"- {meal.name}\n"
+        return s
+
 
 class MealSchedule:
     days: list[DailySchedule]
@@ -122,6 +128,9 @@ class MealSchedule:
             for meal in day.meals:
                 items.update(meal.pantry)
         return items
+
+    def __repr__(self) -> str:
+        return "\n".join(str(day) for day in self.days)
 
 
 @dataclass

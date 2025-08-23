@@ -58,12 +58,10 @@ args = parser.parse_args()
 # once we get a set we like
 random.seed(args.seed)
 db = domain.MealDatabase()
-chosen_meals = list(
-    itertools.islice(db.meals_for_type(domain.MealType.Dinner), args.number_of_meals)
-)
+schedule = domain.MealSchedule()
+schedule.fill_schedule(args.number_of_meals, db)
 print("-" * 80)
-for meal in chosen_meals:
-    print(meal.name)
+print(str(schedule))
 print("-" * 80)
 
 print(f"Seed was {args.seed}")
@@ -73,13 +71,15 @@ print(f"Seed was {args.seed}")
 # ingredient so that we can add that as a note. Keep track of the unique set of
 # pantry items needed so that we can remind ourselves at the end
 grocery_list = domain.GroceryList()
-required_pantry_items = domain.required_pantry_for(chosen_meals)
-for meal in chosen_meals:
-    grocery_list.add_meal(meal)
-    pantry_items = meal.pantry
+grocery_list.add_schedule(schedule)
 
-    if args.add_to_reminders:
-        add_meal(meal, meal.ingredients + meal.pantry)
+# TODO: To be replaced by calendar info
+# for meal in chosen_meals:
+#    grocery_list.add_meal(meal)
+#    pantry_items = meal.pantry
+
+#    if args.add_to_reminders:
+#        add_meal(meal, meal.ingredients + meal.pantry)
 
 for item in grocery_list:
     reminder_title = item.name
@@ -94,7 +94,7 @@ for item in grocery_list:
 
 print()
 print("Pantry items required:")
-for pantry_item in required_pantry_items:
+for pantry_item in schedule.pantry_items:
     print(f"  - {pantry_item}")
 print()
 
