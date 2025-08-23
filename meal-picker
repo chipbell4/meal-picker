@@ -61,7 +61,9 @@ args = parser.parse_args()
 # once we get a set we like
 random.seed(args.seed)
 db = domain.MealDatabase()
-chosen_meals = list(itertools.islice(db.meals_for_type(domain.MealType.Dinner), args.number_of_meals))
+chosen_meals = list(
+    itertools.islice(db.meals_for_type(domain.MealType.Dinner), args.number_of_meals)
+)
 print("-" * 80)
 for meal in chosen_meals:
     print(meal.name)
@@ -78,7 +80,7 @@ required_pantry_items = domain.required_pantry_for(chosen_meals)
 for meal in chosen_meals:
     grocery_list.add_meal(meal)
     pantry_items = meal.pantry
-    
+
     if args.add_to_reminders:
         add_meal(meal, meal.ingredients + meal.pantry)
 
