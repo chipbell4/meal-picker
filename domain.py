@@ -29,6 +29,7 @@ class Meal(object):
             meal_type=set(MealType(m) for m in properties.get("meal")),
         )
 
+
 class MealDatabase:
     meals: list[Meal]
 
@@ -39,7 +40,7 @@ class MealDatabase:
 
         for name, properties in parsed.items():
             self.meals.append(Meal.from_json(name, properties))
-    
+
     def meals_for_type(self, meal_type: MealType) -> Generator[Meal, None, None]:
         filtered = [m for m in self.meals if meal_type in m.meal_type]
         random.shuffle(filtered)
@@ -48,6 +49,7 @@ class MealDatabase:
         while True:
             yield filtered[k]
             k = (k + 1) % len(filtered)
+
 
 @dataclass
 class DailySchedule:
@@ -82,7 +84,7 @@ class MealSchedule:
         # Fill the first lunch with something. Once we start adding dinners we'll start using leftovers
         all_lunches = db.meals_for_type(MealType.Lunch)
         self.days[0].lunch = next(all_lunches)
-        
+
         # Now do dinners and lunches
         all_dinners = db.meals_for_type(MealType.Dinner)
         current_day = 0
