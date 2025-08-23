@@ -82,9 +82,28 @@ class MealSchedule:
 
             current_day += 1
 
+    @property
+    def pantry_items(self) -> set[str]:
+        items = set()
+        for day in self.schedule:
+            if day.breakfast is not None:
+                items.update(day.breakfast.pantry)
+            if day.lunch is not None:
+                items.update(day.lunch.pantry)
+            if day.dinner is not None:
+                items.update(day.dinner.pantry)
+        return items
+
 
 def required_pantry_for(meals: list[Meal]) -> set[str]:
     required_pantry: set[str] = set()
     for meal in meals:
         required_pantry.update(meal.pantry)
     return required_pantry
+
+
+#db = MealDatabase()
+#schedule = MealSchedule()
+#schedule.fill_schedule(4, db)
+#for day in schedule.schedule:
+#    print(day.breakfast.name)
