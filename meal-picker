@@ -2,11 +2,8 @@
 
 import argparse
 import datetime
-import json
 import random
 import subprocess
-from collections import defaultdict
-import sys
 import itertools
 
 import domain
