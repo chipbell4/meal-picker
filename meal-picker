@@ -73,30 +73,20 @@ print(f"Seed was {args.seed}")
 # with a count). Moreover, keep track of the meals associated with each
 # ingredient so that we can add that as a note. Keep track of the unique set of
 # pantry items needed so that we can remind ourselves at the end
-ingredient_counts = defaultdict(int)
-ingredient_meal_lookup = defaultdict(list)
+grocery_list = domain.GroceryList()
 required_pantry_items = domain.required_pantry_for(chosen_meals)
 for meal in chosen_meals:
-    ingredients = meal.ingredients
+    grocery_list.add_meal(meal)
     pantry_items = meal.pantry
-
+    
     if args.add_to_reminders:
-        add_meal(meal, ingredients + pantry_items)
+        add_meal(meal, meal.ingredients + meal.pantry)
 
-    for ingredient in ingredients:
-        ingredient_counts[ingredient] += 1
-        ingredient_meal_lookup[ingredient].append(meal)
-
-ingredients_to_add = sorted(ingredient_counts.keys())
-for ingredient in ingredients_to_add:
-    reminder_title = ingredient
-    reminder_notes = ", ".join(
-        [meal.name for meal in ingredient_meal_lookup[ingredient]]
-    )
-    count = ingredient_counts[ingredient]
-
-    if count > 1:
-        reminder_title += f" (x{count})"
+for item in grocery_list:
+    reminder_title = item.name
+    reminder_notes = ", ".join(item.meals)
+    if item.count > 1:
+        reminder_title += f" (x{item.count})"
 
     if args.debug:
         print(f"  Adding item {reminder_title} : {reminder_notes}")

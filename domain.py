@@ -3,6 +3,7 @@ import json
 import random
 from typing import Generator, Optional
 from enum import StrEnum
+from collections import defaultdict
 
 
 class MealType(StrEnum):
@@ -121,6 +122,44 @@ class MealSchedule:
             for meal in day.meals:
                 items.update(meal.pantry)
         return items
+
+
+@dataclass
+class GroceryListItem(object):
+    name: str
+    count: str
+    meals: set[str]
+
+
+class GroceryList:
+    items: defaultdict[int]
+    ingredient_to_meal_lookup: defaultdict[set[str]]
+
+    def __init__(self):
+        self.items = defaultdict(int)
+        self.ingredient_to_meal_lookup = defaultdict(set)
+
+    def add_meal(self, meal: Meal):
+        for ingredient in meal.ingredients:
+            self.items[ingredient] += 1
+            self.ingredient_to_meal_lookup[ingredient].add(meal.name)
+
+    def add_day(self, day: DailySchedule):
+        for meal in day.meals:
+            self.add_meal(meal)
+
+    def add_schedule(self, schedule: MealSchedule):
+        for day in schedule.days:
+            self.add_day(day)
+
+    def __iter__(self) -> Generator[GroceryListItem, None, None]:
+        sorted_items = sorted(self.items.keys())
+        for item_name in sorted_items:
+            yield GroceryListItem(
+                name=item_name,
+                count=self.items[item_name],
+                meals=self.ingredient_to_meal_lookup[item_name],
+            )
 
 
 def required_pantry_for(meals: list[Meal]) -> set[str]:
