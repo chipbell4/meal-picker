@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
-import datetime
+from datetime import date, datetime, timedelta
 import random
+from typing import Optional
 import apple
 
 import domain
@@ -12,9 +13,30 @@ def add_grocery(item: str, note: str = ""):
     return apple.add_reminder("Groceries", item, note)
 
 
-def add_meal(meal: str, ingredients: list[str]):
-    note = " ".join(ingredients)
-    apple.add_reminder("Meals", meal, note)
+def add_meal_schedule_to_calendar_starting_on(
+    when: date, schedule: domain.MealSchedule
+):
+    meal_time_lookup = {
+        "breakfast": 8,
+        "lunch": 12,
+        "dinner": 17,
+    }
+
+    for days_ahead, daily_schedule in enumerate(schedule.days):
+        current_day = when + timedelta(days=days_ahead)
+
+        for meal_name, hour in meal_time_lookup.items():
+            # If there's no meal set for this meal time, skip it
+            meal: Optional[domain.Meal] = getattr(daily_schedule, meal_name)
+            if meal is None:
+                continue
+
+            summary = meal.name
+            description = ", ".join(meal.ingredients + meal.pantry)
+            meal_time = datetime.combine(current_day, datetime.min.time()).replace(
+                hour=hour
+            )
+            apple.add_event(summary, meal_time, description)
 
 
 # Parse Arguments
@@ -23,9 +45,7 @@ parser = argparse.ArgumentParser(
     description="Picks meals randomly from a list, adding the ingredients to our grocery list",
 )
 parser.add_argument("-n", "--number-of-meals", default=1, type=int)
-parser.add_argument(
-    "-s", "--seed", default=int(datetime.datetime.now().timestamp()), type=int
-)
+parser.add_argument("-s", "--seed", default=int(datetime.now().timestamp()), type=int)
 parser.add_argument("-r", "--add-to-reminders", default=False, action="store_true")
 parser.add_argument("-d", "--debug", default=False, action="store_true")
 args = parser.parse_args()
@@ -49,13 +69,9 @@ print(f"Seed was {args.seed}")
 grocery_list = domain.GroceryList()
 grocery_list.add_schedule(schedule)
 
-# TODO: To be replaced by calendar info
-# for meal in chosen_meals:
-#    grocery_list.add_meal(meal)
-#    pantry_items = meal.pantry
-
-#    if args.add_to_reminders:
-#        add_meal(meal, meal.ingredients + meal.pantry)
+if args.add_to_reminders:
+    tomorrow = date.today() + timedelta(days=1)
+    add_meal_schedule_to_calendar_starting_on(tomorrow, schedule)
 
 for item in grocery_list:
     reminder_title = item.name
@@ -74,4 +90,5 @@ for pantry_item in schedule.pantry_items:
     print(f"  - {pantry_item}")
 print()
 
-print("Dry-run only. Set -r to actually save to Reminders")
+if not args.add_to_reminders:
+    print("Dry-run only. Set -r to actually save to Reminders")
