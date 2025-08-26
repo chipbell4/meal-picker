@@ -19,6 +19,7 @@ class Meal(object):
     pantry: list[str]
     leftovers: int
     meal_type: set[MealType]
+    is_leftover: bool = False
 
     @staticmethod
     def from_json(name: str, properties: dict):
@@ -28,6 +29,16 @@ class Meal(object):
             pantry=properties.get("pantry"),
             leftovers=properties.get("leftovers"),
             meal_type=set(MealType(m) for m in properties.get("meal")),
+        )
+
+    def as_leftover(self) -> "Meal":
+        return Meal(
+            name=self.name,
+            ingredients=self.ingredients,
+            pantry=self.pantry,
+            leftovers=self.leftovers - 1,
+            meal_type=self.meal_type,
+            is_leftover=True,
         )
 
 
@@ -94,7 +105,7 @@ class MealSchedule:
             leftovers_remaining = breakfast.leftovers
             while leftovers_remaining > 0 and current_day < (days - 1):
                 current_day += 1
-                self.days[current_day].breakfast = breakfast
+                self.days[current_day].breakfast = breakfast.as_leftover()
                 leftovers_remaining -= 1
 
             current_day += 1
@@ -109,14 +120,14 @@ class MealSchedule:
         while current_day < days:
             last_dinner = next(all_dinners)
             leftovers_remaining = last_dinner.leftovers
-            self.days[current_day].dinner = last_dinner
+            self.days[current_day].dinner = last_dinner.as_leftover()
 
             current_day += 1
 
             if current_day < days:
                 # If there's leftovers, we eat that
                 if leftovers_remaining > 0:
-                    self.days[current_day].lunch = last_dinner
+                    self.days[current_day].lunch = last_dinner.as_leftover()
                 # Otherwise, pick a new lunch to cook
                 else:
                     self.days[current_day].lunch = next(all_lunches)
@@ -149,6 +160,10 @@ class GroceryList:
         self.ingredient_to_meal_lookup = defaultdict(set)
 
     def add_meal(self, meal: Meal):
+        # Don't add the same meal twice to the grocery list if it was a left over
+        if meal.is_leftover:
+            return
+
         for ingredient in meal.ingredients:
             self.items[ingredient] += 1
             self.ingredient_to_meal_lookup[ingredient].add(meal.name)
