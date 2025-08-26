@@ -184,19 +184,3 @@ class GroceryList:
                 count=self.items[item_name],
                 meals=self.ingredient_to_meal_lookup[item_name],
             )
-
-
-def required_pantry_for(meals: list[Meal]) -> set[str]:
-    required_pantry: set[str] = set()
-    for meal in meals:
-        required_pantry.update(meal.pantry)
-    return required_pantry
-
-
-db = MealDatabase()
-schedule = MealSchedule()
-schedule.fill_schedule(10, db)
-for day in schedule.days:
-    print(f"{day.breakfast.name}, {day.lunch.name}, {day.dinner.name}")
-
-print(schedule.pantry_items)
