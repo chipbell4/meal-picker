@@ -36,6 +36,3 @@ def add_event(summary: str, when: datetime, description: str = ""):
     )
 
     return asrun(script)
-
-
-add_event("Test event", datetime.now(), "Hello world")
