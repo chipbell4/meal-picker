@@ -21,7 +21,7 @@ then I'll "save it" to my Groceries list in the Reminders app by adding the
 For this to work for you need to
 - Be on a Mac
 - Have a list in the Reminders app called "Groceries"
-- Have another list in the Reminders app called "Meals"
+- Have a calendar in your Calendar app called "Meals"
 
 The nice part about this is that if you're logged into iCloud, the list will
 automatically sync to your phone and voilá you have a grocery list. The list of
