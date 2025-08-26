@@ -9,12 +9,12 @@ import domain
 
 
 def add_grocery(item: str, note: str = ""):
-    return apple.add_item("Groceries", item, note)
+    return apple.add_reminder("Groceries", item, note)
 
 
 def add_meal(meal: str, ingredients: list[str]):
     note = " ".join(ingredients)
-    apple.add_item("Meals", meal, note)
+    apple.add_reminder("Meals", meal, note)
 
 
 # Parse Arguments

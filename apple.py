@@ -11,7 +11,7 @@ def asrun(ascript):
         raise ChildProcessError(f"AppleScript: {osa.stderr.rstrip()}")
 
 
-def add_item(list_name: str, item: str, note: str = ""):
+def add_reminder(list_name: str, item: str, note: str = ""):
     with open("add-item.scpt", "r") as f:
         template = f.read()
 
